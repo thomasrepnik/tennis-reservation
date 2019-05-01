@@ -42,6 +42,20 @@ export class PlayerSelectComponent implements OnInit, ControlValueAccessor, Vali
 
   ngOnInit() {
     this.users = this.userService.getAllUsersWithoutMe();
+    this.playerForm.setValidators(this.dataCombinationValidator)
+  }
+
+  dataCombinationValidator(group: FormGroup): any {
+    if (group) {
+
+      if (group.value['isGuest'] === true && group.value['guestName'] === "") {
+        return { guestNameNotSet: true };
+      } else if (group.value['isGuest'] === false && group.value['playerId'] == null) {
+        return { playerNotSet: true };
+      }
+    }
+
+    return null;
   }
 
   onTouched = () => { }
