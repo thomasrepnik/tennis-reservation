@@ -1,0 +1,21 @@
+@import "../../variables.scss";
+
+html{
+    background: transparent;
+}
+
+.card{
+    background: rgba(255,255,255,0.5)
+}
+
+#header {
+    background: $primary-color;
+}
+
+@media (min-width: 0px) and (max-width: 767px){ 
+    .card{
+        border: 0;
+    }
+
+ }
+

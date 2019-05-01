@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity FeldReservationType.
+    -->
+    <changeSet id="20190423104514-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="feld_id"
+                                 baseTableName="feld_reservation_type"
+                                 constraintName="fk_feld_reservation_type_feld_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="feld"/>
+        <addForeignKeyConstraint baseColumnNames="reservation_type_id"
+                                 baseTableName="feld_reservation_type"
+                                 constraintName="fk_feld_reservation_type_reservation_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="reservation_type"/>
+        
+
+    </changeSet>
+</databaseChangeLog>

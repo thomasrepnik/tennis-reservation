@@ -1,0 +1,5 @@
+
+allprojects {
+    group = 'ch.repnik.tennis'
+    version = '0.0.1-SNAPSHOT'
+}

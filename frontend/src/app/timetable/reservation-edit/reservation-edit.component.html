@@ -1,0 +1,60 @@
+<div class="row mt-3" *ngIf="reservation != null">
+  <div class="col col-12">
+    <h5>{{editMode ? "Reservation anpassen": "Neue Reservation"}}</h5>
+    <hr>
+    <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()" #myForm="ngForm">
+      <div class="row">
+        <div class="col col-12 col-sm-6 vertical-border">
+          <div class="form-group">
+            <label for="selectedDate">Datum</label>
+            <input class="form-control" type="text" readonly="true" id="selectedDate" formControlName="date">
+          </div>
+          <div class="form-group">
+            <label for="selectedTime">Zeit</label>
+            <input class="form-control" type="text" readonly="true" id="selectedTime" formControlName="time">
+          </div>
+          <div class="form-group">
+            <label for="selectedTime">Spielart</label>
+            <ng-select formControlName="spielart" [clearable]="false" [searchable]="false" placeholder="Bitte wählen"
+              [items]="reservationTypes | async" bindLabel="name">
+            </ng-select>
+          </div>
+        </div>
+
+        <div class="col col-12 col-sm-6">
+          <div formArrayName="players">
+            <div class="row" *ngFor="let player of asFormArray(reservationForm.get('players')).controls; let i = index">
+              <div class="col col-12">
+                <app-player-select [formControlName]="i" [title]="'Spieler ' + (i + 1)"></app-player-select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-3">
+        <div class="col col-12">
+          <div class="btn-toolbar">
+            <div class="mr-2">
+              <button class="btn btn-primary" [disabled]="!reservationForm.valid" type="submit">Speichern</button>
+            </div>
+            <button class="btn btn-danger" *ngIf="editMode" (click)="onDelete(confirmDialog)">Löschen</button>
+            <button class="btn btn-danger" *ngIf="!editMode" (click)="onCancel()">Abbrechen</button>
+            <ng-template #confirmDialog>
+              <div class="modal-body text-center">
+                <p>Soll die Reservation wirklich gelöscht werden?</p>
+                <div class="row">
+                  <div class="col col-12">
+                    <button type="button" class="btn btn-danger mr-2" (click)="confirm()">&nbsp;Ja&nbsp;</button>
+                    <button type="button" class="btn btn-primary" (click)="decline()">Nein</button>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
