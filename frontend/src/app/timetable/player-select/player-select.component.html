@@ -1,0 +1,27 @@
+<ng-container [formGroup]="playerForm">
+  <div class="row">
+    <div class="col col-10">
+      <div class="form-group">
+        <label for="player1">{{title}}</label>
+        <input class="form-control" formControlName="guestName" type="text" id="player1" placeholder="Vorname Name"
+          *ngIf="playerForm.value.isGuest">
+
+        <ng-select formControlName="playerId" [items]="users | async" bindLabel="firstName" bindValue="id"
+          *ngIf="!playerForm.value.isGuest">
+        </ng-select>
+
+        <span class="help-block" *ngIf="!playerForm.valid && playerForm.touched">Bitte gib einen
+          gültigen Spieler ein</span>
+      </div>
+    </div>
+    <div class="col col-2">
+      <div class="form-group ">
+        <label for="player1">Gast</label>
+        <label class="container">
+          <input type="checkbox" formControlName="isGuest">
+          <span class="checkmark form-control"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+</ng-container>

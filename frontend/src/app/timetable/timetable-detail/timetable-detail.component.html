@@ -1,0 +1,41 @@
+<!-- <div class="row" *ngFor="let reservation of reservations">
+  <div class="col col-12">
+    {{ reservation.player1}}
+  </div>
+</div> -->
+<div class="row">
+  <div class="col col-12">
+    <div class="table-responsive">
+      <table class="table table-fixed" id="timetable">
+        <thead>
+          <tr>
+            <th scope="col">{{date | date:'dd.MM'}}</th>
+            <th scope="col" *ngFor="let timeslot of timeslots">{{timeslot.from}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let court of courts">
+            <th scope="row" style="white-space: nowrap">{{court.name}}</th>
+            <td (click)="onCellClick(reservation)" *ngFor="let reservation of getReservationsByCourt(court.id)">
+              <span *ngIf="reservation !== null">
+                <div *ngIf="reservation.spieler1 != null || reservation.gast1 != null">
+                  {{reservation.spieler1 | player: reservation.gast1}}
+                </div>
+                <div *ngIf="reservation.spieler2 != null || reservation.gast2 != null">
+                  {{reservation.spieler2 | player: reservation.gast2}}
+                </div>
+                <div *ngIf="reservation.spieler3 != null || reservation.gast3 != null">
+                  {{reservation.spieler3 | player: reservation.gast3}}
+                </div>
+                <div *ngIf="reservation.spieler4 != null || reservation.gast4 != null">
+                  {{reservation.spieler4 | player: reservation.gast4}}
+                </div>
+              </span>
+              <span *ngIf="reservation === null">&nbsp;</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

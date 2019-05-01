@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col col-12">
+    <h5>Reservationen</h5>
+  </div>
+</div>
+<div class="row" id="datepicker">
+  <div class="col col-12 col-lg-4">
+    <form>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="datepicker-wrapper">
+            <button type="button" class="button-previous-day" (click)="subtractDay()"><i
+                class="fas fa-chevron-left"></i></button>
+            <div class="datepicker-input">
+              <input type="text" #datepicker="bsDatepicker" readonly="true" class="datepicker-input" placeholder="Datum"
+                bsDatepicker name="datum" [bsConfig]="{dateInputFormat: 'dd, DD.MM.YYYY'}" [(ngModel)]="date"
+                (ngModelChange)="dateChanged()" (onShown)=" onOpenCalendar($event)">
+            </div>
+            <button type="button" class="mod_datepicker_nextday" (click)="addDay()"><i
+                class="fas fa-chevron-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

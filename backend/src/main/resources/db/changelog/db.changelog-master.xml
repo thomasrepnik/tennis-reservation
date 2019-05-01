@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <include file="0001_initial_schema.xml" relativeToChangelogFile="true"/>
+    <include file="0002_added_entity_Feld.xml" relativeToChangelogFile="true"/>
+    <include file="0003_added_entity_Reservation.xml" relativeToChangelogFile="true"/>
+    <include file="0004_added_entity_ReservationType.xml" relativeToChangelogFile="true"/>
+    <include file="0005_added_entity_FeldReservationType.xml" relativeToChangelogFile="true"/>
+    <include file="0006_added_entity_constraints_FeldReservationType.xml" relativeToChangelogFile="true"/>
+    <include file="0007_added_entity_constraints_Reservation.xml" relativeToChangelogFile="true"/>
+    <include file="0008_added_column_feld_to_Reservation.xml" relativeToChangelogFile="true"/>
+    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+</databaseChangeLog>

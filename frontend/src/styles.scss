@@ -1,0 +1,50 @@
+/* You can add global styles to this file, and also import other style files */
+/*html {
+    background: url("/assets/background.svg") no-repeat center center fixed;
+    background-size: cover;
+}
+*/
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+@import "./variables.scss";
+
+body{
+    background: transparent;
+}
+
+body .bs-datepicker-container .bs-datepicker-head {
+    background-color: $primary-color;
+}
+
+body .bs-datepicker-container .bs-datepicker-body table td.week span {
+    color: $primary-color;
+}
+
+.btn-primary, .btn-primary:active, .btn-primary:visited {
+    background-color: $primary-color !important;
+}
+
+.btn-primary:hover {
+    background-color: $primary-color-4 !important;
+}
+
+.btn-danger, .btn-danger:active, .btn-danger:visited {
+    background-color: $primary-color-2 !important;
+}
+
+.btn-danger:hover {
+    background-color: $primary-color-2 !important;
+}
+
+@media (max-width: 978px) {
+    .container-fluid {
+      padding:0;
+      margin:0;
+    }
+
+    .navbar-fixed-top, .navbar-fixed-bottom, .navbar-static-top {
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom:0;
+    }
+}

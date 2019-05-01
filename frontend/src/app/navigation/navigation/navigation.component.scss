@@ -1,0 +1,17 @@
+@import "../../../variables.scss";
+
+#main-navigation {
+    background-color: $primary-color;
+}
+
+#main-navigation .nav-link{
+    color: white
+}
+
+.badge-notify{
+    background: rgb(243, 82, 82);
+    position:relative;
+    margin-right: -1.4em;
+    top: -10px;
+    left: -10px;
+   }

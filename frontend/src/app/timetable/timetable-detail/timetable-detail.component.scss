@@ -1,0 +1,31 @@
+@import "../../../variables.scss";
+
+#timetable {
+    font-family: 'Open Sans';
+    font-size: 0.8rem;
+    border-collapse: collapse;
+}
+
+#timetable td, #timetable th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#timetable tr:nth-child(even){background-color: #f2f2f2;}
+
+#timetable td:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+#timetable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: $primary-color;
+  color: white;
+}
+
+td:empty {
+  background: #ff0000;
+}

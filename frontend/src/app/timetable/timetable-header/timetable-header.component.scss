@@ -1,0 +1,35 @@
+
+.datepicker-wrapper {
+    display: flex;
+    flex: 0 0 100%;
+    background: #fff;
+    border: .13333em solid #b7b7b7;
+    height: 2.5em;
+    border-radius: 6px;
+}
+
+
+
+.mod_datepicker_nextday,
+.button-previous-day{
+    display: block;
+    flex: 0 0 2em;
+    height: 100%;
+    padding: 0;
+    background-color: transparent;
+    border: 0px;
+}
+
+.datepicker-input{
+    display: block;
+    width: 100%;
+    border: none;
+    height: 2.33333em;
+    padding-left: .66667em;
+    padding-right: 0;
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background-color: transparent;
+}
