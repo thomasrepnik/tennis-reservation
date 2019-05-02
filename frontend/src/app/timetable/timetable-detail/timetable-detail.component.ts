@@ -59,26 +59,36 @@ export class TimetableDetailComponent implements OnInit {
   }
 
   onCellClick(reservation: ReservationModel) {
-    if (reservation.id > 0) {
+    if (reservation != null && reservation.id > 0) {
       this.router.navigate(['reservation', reservation.id]);
     } else {
       this.router.navigate(['reservation'], { state: reservation })
     }
   }
 
-  getReservationsByCourt(courtId: number): Reservation[] {
+  createAvailableReservation(feld: Feld, date: Date, startTime: string, endTime: string) {
+    let reservation: Reservation = new Reservation();
+    reservation.id = null;
+    reservation.datum = date;
+    reservation.feld = feld;
+    reservation.start = startTime;
+    reservation.ende = endTime;
+    return reservation;
+  }
+
+  getReservationsByCourt(feld: Feld): Reservation[] {
     let result: Reservation[] = [];
 
     this.timeslots.forEach((timeslot, index) => {
       const reservation = this.reservations.filter(
         reservation => {
-          return reservation.feld.id === courtId && reservation.start === timeslot.from;
+          return reservation.feld.id === feld.id && reservation.start === timeslot.from;
         })
 
       if (reservation.length > 0) {
         result.push(reservation[0])
       } else {
-        result.push(null)
+        result.push(this.createAvailableReservation(feld, this.date, timeslot.from, timeslot.from))
       }
     })
 

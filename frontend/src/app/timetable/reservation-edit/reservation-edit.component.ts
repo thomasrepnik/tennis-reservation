@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
 import { ReservationService } from '../reservation.service';
 import { UserService } from './user.service';
 import { UserSlim } from 'src/app/models/user';
-import { Reservation } from 'src/app/models/reservation';
+import { Reservation, Spieler } from 'src/app/models/reservation';
 import { ReservationType } from 'src/app/models/reservation-type';
 
 @Component({
@@ -70,19 +70,21 @@ export class ReservationEditComponent implements OnInit {
       }
     )
 
-
     //Init Players
     const control = new FormControl(null);
     (<FormArray>this.reservationForm.get('players')).push(new FormControl(null));
     (<FormArray>this.reservationForm.get('players')).push(new FormControl(null));
     (<FormArray>this.reservationForm.get('players')).push(new FormControl(null));
+    (<FormArray>this.reservationForm.get('players')).push(new FormControl(null));
+
 
     this.users = this.userService.getAllUsersWithoutMe();
     this.reservationTypes = this.reservationService.getReservationTypes();
 
     this.activatedRoute.params.subscribe(
       (params: Params) => {
-        if (params['id'] !== null) {
+        if (params['id'] !== null && params['id'] !== undefined) {
+          console.log(params['id'])
           const id: number = +params['id']
           this.reservationService.getReservationById(id).subscribe(
             (reservation: Reservation) => {
@@ -97,7 +99,7 @@ export class ReservationEditComponent implements OnInit {
     this.activatedRoute.paramMap
       .pipe(map(() => window.history.state)).subscribe(
         (reservationModel: any) => {
-          if (reservationModel.hasOwnProperty('fromTime')) {
+          if (reservationModel.hasOwnProperty('start')) {
             this.reservation = reservationModel;
             this.updateForm(this.reservation);
           }
@@ -122,23 +124,21 @@ export class ReservationEditComponent implements OnInit {
   }
 
   onSubmit() {
-
-    console.log(this.myForm)
-
     const newReservation: Reservation = new Reservation();
-    newReservation.id = 0; // Wird automatisch upgedatet
+    newReservation.id = null; // Wird automatisch upgedatet
     newReservation.datum = this.reservation.datum;
     newReservation.start = this.reservation.start;
     newReservation.ende = this.reservation.ende;
-    newReservation.spieler1 = this.reservationForm.value['player1'];
-    newReservation.spieler2 = this.reservationForm.value['player2'];
-    newReservation.spieler3 = this.reservationForm.value['player3'];
-    newReservation.spieler4 = this.reservationForm.value['player4'];
+    newReservation.spieler1 = this.createSpieler(this.reservationForm.value['players'][0]);
+    newReservation.spieler2 = this.createSpieler(this.reservationForm.value['players'][1]);
+    newReservation.spieler3 = this.createSpieler(this.reservationForm.value['players'][2]);
+    newReservation.spieler4 = this.createSpieler(this.reservationForm.value['players'][3]);
     newReservation.gast1 = this.reservationForm.value['guest1'];
     newReservation.gast2 = this.reservationForm.value['guest2'];
     newReservation.gast3 = this.reservationForm.value['guest3'];
     newReservation.gast4 = this.reservationForm.value['guest4'];
     newReservation.feld = this.reservation.feld;
+    newReservation.reservationType = this.reservationForm.value['spielart']
 
     if (this.editMode) {
       //update
@@ -149,6 +149,14 @@ export class ReservationEditComponent implements OnInit {
     }
 
     this.router.navigate(['']);
+  }
+
+  createSpieler(value: any): Spieler {
+    if (value !== null && value !== undefined && value.playerId !== null && value.playerId !== undefined && value.playerId > 0) {
+      return new Spieler(value.playerId, '', '')
+    } else {
+      return null;
+    }
   }
 
   onCancel() {
@@ -176,6 +184,11 @@ export class ReservationEditComponent implements OnInit {
       this.reservationForm.patchValue({ 'date': this.datePipe.transform(reservationModel.datum, 'dd.MM.yyyy') })
       this.reservationForm.patchValue({ 'time': reservationModel.start + " - " + reservationModel.ende })
       if (reservationModel.spieler1 != null) {
+
+        console.log(reservationModel.spieler1 == null ? reservationModel.gast1 : "")
+        console.log(reservationModel.spieler1 == null ? null : reservationModel.spieler1.id)
+        console.log(reservationModel.spieler1 == null)
+
         this.reservationForm.patchValue({
           'players': [
             {
@@ -200,37 +213,9 @@ export class ReservationEditComponent implements OnInit {
             }
           ]
         })
-
-        console.log('a')
-        /*const playersArray = this.reservationForm.controls['players'] as FormArray;
-        //playersArray.push(this.initPlayerItem());
-        playersArray.at(0).patchValue({
-          guestName: "test234",
-          playerId: 1,
-          isGuest: true
-        });*/
-
-        /*
-        WORKS!!
-        this.reservationForm.controls['players']['controls'][0].patchValue({
-          guestName: "test",
-          playerId: 1,
-          isGuest: true
-        })*/
-
       }
 
-      if (reservationModel.spieler2 != null) {
-        this.reservationForm.patchValue({ 'player2': reservationModel.spieler2.id })
-      }
 
-      if (reservationModel.spieler3 != null) {
-        this.reservationForm.patchValue({ 'player3': reservationModel.spieler3.id })
-      }
-
-      if (reservationModel.spieler4 != null) {
-        this.reservationForm.patchValue({ 'player4': reservationModel.spieler4.id })
-      }
       this.reservationForm.patchValue({ 'guest1': reservationModel.gast1 })
       this.reservationForm.patchValue({ 'guest2': reservationModel.gast2 })
       this.reservationForm.patchValue({ 'guest3': reservationModel.gast3 })

@@ -16,7 +16,7 @@
         <tbody>
           <tr *ngFor="let court of courts">
             <th scope="row" style="white-space: nowrap">{{court.name}}</th>
-            <td (click)="onCellClick(reservation)" *ngFor="let reservation of getReservationsByCourt(court.id)">
+            <td (click)="onCellClick(reservation)" *ngFor="let reservation of getReservationsByCourt(court)">
               <span *ngIf="reservation !== null">
                 <div *ngIf="reservation.spieler1 != null || reservation.gast1 != null">
                   {{reservation.spieler1 | player: reservation.gast1}}

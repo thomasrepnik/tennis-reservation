@@ -62,8 +62,11 @@ export class ReservationService {
   }
 
   addReservation(reservation: Reservation) {
-    reservation.id = this.reservations.length + 1;
-    //TODO: HTTP POST CALL: this.reservations.push(reservation);
+    this.httpClient.post<Reservation>('/api/reservations/', reservation).subscribe(
+      (reservation: Reservation) => {
+        console.log('Reservation wurde mit ID ' + reservation.id + 'hinzugefügt')
+      }
+    );
   }
 
   updateReservation(reservation: Reservation) {

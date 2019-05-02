@@ -30,7 +30,7 @@ export class PlayerSelectComponent implements OnInit, ControlValueAccessor, Vali
     {
       guestName: new FormControl(null),
       playerId: new FormControl(null),
-      isGuest: new FormControl(null, Validators.required)
+      isGuest: new FormControl(null)
     }
   );
 

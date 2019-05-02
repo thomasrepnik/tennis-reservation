@@ -5,12 +5,18 @@ export class Spieler {
     id: number;
     firstName: string;
     lastName: string;
+
+    constructor(id: number, firstName: string, lastName: string) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 }
 
 
 export class Reservation {
     id: number;
-    datum: string;
+    datum: Date;
     feld: Feld;
     start: string;
     ende: string;
