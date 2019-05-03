@@ -185,10 +185,6 @@ export class ReservationEditComponent implements OnInit {
       this.reservationForm.patchValue({ 'time': reservationModel.start + " - " + reservationModel.ende })
       if (reservationModel.spieler1 != null) {
 
-        console.log(reservationModel.spieler1 == null ? reservationModel.gast1 : "")
-        console.log(reservationModel.spieler1 == null ? null : reservationModel.spieler1.id)
-        console.log(reservationModel.spieler1 == null)
-
         this.reservationForm.patchValue({
           'players': [
             {
