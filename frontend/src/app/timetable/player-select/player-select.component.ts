@@ -1,9 +1,8 @@
 import { Component, OnInit, forwardRef, Input } from '@angular/core';
 import { UserService } from '../reservation-edit/user.service';
 import { Observable } from 'rxjs';
-import { User, UserSlim } from 'src/app/models/user';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup, FormControl, Validators, NG_VALIDATORS, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
-import { PlayerSelectionDto } from './player-selection-dto';
+import { UserSlim } from 'src/app/models/user';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup, FormControl, NG_VALIDATORS, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-player-select',
@@ -31,7 +30,8 @@ export class PlayerSelectComponent implements OnInit, ControlValueAccessor, Vali
       guestName: new FormControl(null),
       playerId: new FormControl(null),
       isGuest: new FormControl(null)
-    }
+    },
+    this.dataCombinationValidator
   );
 
   users: Observable<UserSlim[]>;
@@ -42,15 +42,16 @@ export class PlayerSelectComponent implements OnInit, ControlValueAccessor, Vali
 
   ngOnInit() {
     this.users = this.userService.getAllUsersWithoutMe();
-    this.playerForm.setValidators(this.dataCombinationValidator)
+    this.playerForm.updateValueAndValidity();
+
   }
+
 
   dataCombinationValidator(group: FormGroup): any {
     if (group) {
-
-      if (group.value['isGuest'] === true && group.value['guestName'] === "") {
+      if (group.value['isGuest'] === true && (group.value['guestName'] === "" || group.value['guestName'] == null)) {
         return { guestNameNotSet: true };
-      } else if (group.value['isGuest'] === false && group.value['playerId'] == null) {
+      } else if ((group.value['isGuest'] === false || group.value['isGuest'] == null) && group.value['playerId'] == null) {
         return { playerNotSet: true };
       }
     }

@@ -125,6 +125,8 @@ export class ReservationEditComponent implements OnInit {
 
   onSubmit() {
 
+    console.log(this.myForm)
+
     const newReservation: Reservation = new Reservation();
     newReservation.id = null; // Wird automatisch upgedatet
     newReservation.datum = this.reservation.datum;
@@ -159,10 +161,15 @@ export class ReservationEditComponent implements OnInit {
 
   createSpieler(value: any): Spieler {
     if (value !== null && value !== undefined && value.playerId !== null && value.playerId !== undefined && value.playerId > 0) {
-      return new Spieler(value.playerId, '', '')
+      if (value.isGuest) {
+        return null;
+      } else {
+        return new Spieler(value.playerId, '', '')
+      }
     } else {
       return null;
     }
+
   }
 
   createGast(value: any): string {
