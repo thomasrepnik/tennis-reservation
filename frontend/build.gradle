@@ -2,6 +2,7 @@
 plugins {
   id 'java'
   id "com.moowork.node" version "1.2.0"
+  id 'distribution'
 }
 
 // 2
@@ -17,4 +18,14 @@ jar.dependsOn 'npm_run_build'
 // 4
 jar {
   from 'dist/tennis-res-v2' into 'static'
+}
+
+// 5 
+distributions {
+    main {
+        baseName = 'tennis-frontend'
+        contents {
+            from 'dist/tennis-res-v2'
+        }
+    }
 }
