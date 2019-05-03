@@ -124,6 +124,7 @@ export class ReservationEditComponent implements OnInit {
   }
 
   onSubmit() {
+
     const newReservation: Reservation = new Reservation();
     newReservation.id = null; // Wird automatisch upgedatet
     newReservation.datum = this.reservation.datum;
@@ -133,27 +134,40 @@ export class ReservationEditComponent implements OnInit {
     newReservation.spieler2 = this.createSpieler(this.reservationForm.value['players'][1]);
     newReservation.spieler3 = this.createSpieler(this.reservationForm.value['players'][2]);
     newReservation.spieler4 = this.createSpieler(this.reservationForm.value['players'][3]);
-    newReservation.gast1 = this.reservationForm.value['guest1'];
-    newReservation.gast2 = this.reservationForm.value['guest2'];
-    newReservation.gast3 = this.reservationForm.value['guest3'];
-    newReservation.gast4 = this.reservationForm.value['guest4'];
+    newReservation.gast1 = this.createGast(this.reservationForm.value['players'][0]);
+    newReservation.gast2 = this.createGast(this.reservationForm.value['players'][1]);
+    newReservation.gast3 = this.createGast(this.reservationForm.value['players'][2]);
+    newReservation.gast4 = this.createGast(this.reservationForm.value['players'][3]);
     newReservation.feld = this.reservation.feld;
     newReservation.reservationType = this.reservationForm.value['spielart']
 
     if (this.editMode) {
       //update
       newReservation.id = this.reservation.id;
-      this.reservationService.updateReservation(newReservation);
+      this.reservationService.updateReservation(newReservation).subscribe(
+        (reservation: Reservation) => {
+          console.log('Reservation wurde mit ID ' + reservation.id + ' aktualisiert')
+          this.router.navigate(['']);
+        }
+      );;
     } else {
       this.reservationService.addReservation(newReservation);
     }
 
-    this.router.navigate(['']);
+
   }
 
   createSpieler(value: any): Spieler {
     if (value !== null && value !== undefined && value.playerId !== null && value.playerId !== undefined && value.playerId > 0) {
       return new Spieler(value.playerId, '', '')
+    } else {
+      return null;
+    }
+  }
+
+  createGast(value: any): string {
+    if (value !== null && value !== undefined && value.guestName !== null && value.guestName !== undefined) {
+      return value.guestName
     } else {
       return null;
     }
@@ -183,44 +197,35 @@ export class ReservationEditComponent implements OnInit {
     if (reservationModel !== null) {
       this.reservationForm.patchValue({ 'date': this.datePipe.transform(reservationModel.datum, 'dd.MM.yyyy') })
       this.reservationForm.patchValue({ 'time': reservationModel.start + " - " + reservationModel.ende })
-      if (reservationModel.spieler1 != null) {
 
-        this.reservationForm.patchValue({
-          'players': [
-            {
-              guestName: reservationModel.spieler1 == null ? reservationModel.gast1 : "",
-              playerId: reservationModel.spieler1 == null ? null : reservationModel.spieler1.id,
-              isGuest: reservationModel.spieler1 == null
-            },
-            {
-              guestName: reservationModel.spieler2 == null ? reservationModel.gast2 : "",
-              playerId: reservationModel.spieler2 == null ? null : reservationModel.spieler2.id,
-              isGuest: reservationModel.spieler2 == null
-            },
-            {
-              guestName: reservationModel.spieler3 == null ? reservationModel.gast3 : "",
-              playerId: reservationModel.spieler3 == null ? null : reservationModel.spieler3.id,
-              isGuest: reservationModel.spieler3 == null
-            },
-            {
-              guestName: reservationModel.spieler4 == null ? reservationModel.gast4 : "",
-              playerId: reservationModel.spieler4 == null ? null : reservationModel.spieler4.id,
-              isGuest: reservationModel.spieler4 == null
-            }
-          ]
-        })
-      }
-
-
-      this.reservationForm.patchValue({ 'guest1': reservationModel.gast1 })
-      this.reservationForm.patchValue({ 'guest2': reservationModel.gast2 })
-      this.reservationForm.patchValue({ 'guest3': reservationModel.gast3 })
-      this.reservationForm.patchValue({ 'guest4': reservationModel.gast4 })
+      this.reservationForm.patchValue({
+        'players': [
+          {
+            guestName: reservationModel.spieler1 == null ? reservationModel.gast1 : "",
+            playerId: reservationModel.spieler1 == null ? null : reservationModel.spieler1.id,
+            isGuest: reservationModel.spieler1 == null
+          },
+          {
+            guestName: reservationModel.spieler2 == null ? reservationModel.gast2 : "",
+            playerId: reservationModel.spieler2 == null ? null : reservationModel.spieler2.id,
+            isGuest: reservationModel.spieler2 == null
+          },
+          {
+            guestName: reservationModel.spieler3 == null ? reservationModel.gast3 : "",
+            playerId: reservationModel.spieler3 == null ? null : reservationModel.spieler3.id,
+            isGuest: reservationModel.spieler3 == null
+          },
+          {
+            guestName: reservationModel.spieler4 == null ? reservationModel.gast4 : "",
+            playerId: reservationModel.spieler4 == null ? null : reservationModel.spieler4.id,
+            isGuest: reservationModel.spieler4 == null
+          }
+        ]
+      })
 
       if (reservationModel.reservationType != null) {
         this.reservationForm.patchValue({ 'spielart': reservationModel.reservationType })
       }
-
 
       this.editMode = (reservationModel.id > 0);
     } else {

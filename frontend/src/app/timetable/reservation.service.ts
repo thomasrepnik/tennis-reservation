@@ -64,15 +64,13 @@ export class ReservationService {
   addReservation(reservation: Reservation) {
     this.httpClient.post<Reservation>('/api/reservations/', reservation).subscribe(
       (reservation: Reservation) => {
-        console.log('Reservation wurde mit ID ' + reservation.id + 'hinzugefügt')
+        console.log('Reservation wurde mit ID ' + reservation.id + ' hinzugefügt')
       }
     );
   }
 
-  updateReservation(reservation: Reservation) {
-    let reservationToUpdate = this.reservations.find((r) => r.id === reservation.id);
-    let index = this.reservations.indexOf(reservationToUpdate);
-    //TODO: HTTP PUT CALL: this.reservations[index] = reservation;
+  updateReservation(reservation: Reservation): Observable<Reservation> {
+    return this.httpClient.put<Reservation>('/api/reservations/', reservation);
   }
 
   deleteReservation(id: number) {

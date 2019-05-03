@@ -22,7 +22,7 @@
         </div>
 
         <div class="col col-12 col-sm-6">
-          <div formArrayName="players">
+          <div formArrayName="players" *ngIf="reservationForm.value['spielart'] !== null">
             <div class="row" *ngFor="let player of asFormArray(reservationForm.get('players')).controls; let i = index">
               <div class="col col-12">
                 <app-player-select [formControlName]="i" [title]="'Spieler ' + (i + 1)"></app-player-select>
