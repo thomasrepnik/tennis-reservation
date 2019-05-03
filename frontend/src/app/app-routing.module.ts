@@ -7,6 +7,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { HeaderLayoutComponent } from './layouts/header-layout/header-layout.component';
 import { componentFactoryName } from '@angular/compiler';
 import { HeadlessLayoutComponent } from './layouts/headless-layout/headless-layout.component';
+import { ReservationsComponent } from './reservations/reservations/reservations.component';
+import { NewsComponent } from './news/news/news.component';
 
 const routes: Routes = [
   {
@@ -14,6 +16,14 @@ const routes: Routes = [
     component: HeaderLayoutComponent,
     canActivate: [AuthGuard],
     children: [
+      {
+        path: 'reservations',
+        component: ReservationsComponent
+      },
+      {
+        path: 'news',
+        component: NewsComponent
+      },
       {
         path: 'reservation',
         component: ReservationEditComponent

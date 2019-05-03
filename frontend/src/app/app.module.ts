@@ -26,6 +26,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { PlayerSelectComponent } from './timetable/player-select/player-select.component';
 import { PlayerPipe } from './pipes/player.pipe';
+import { ReservationsComponent } from './reservations/reservations/reservations.component';
+import { NewsComponent } from './news/news/news.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { PlayerPipe } from './pipes/player.pipe';
     HeaderLayoutComponent,
     HeadlessLayoutComponent,
     PlayerSelectComponent,
-    PlayerPipe
+    PlayerPipe,
+    ReservationsComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,
