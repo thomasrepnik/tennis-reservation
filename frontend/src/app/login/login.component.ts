@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  error: string;
   returnUrl: string;
   loginForm: FormGroup;
 
@@ -30,11 +31,15 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.error = ""
     const user = this.authService.login(this.loginForm.value['username'], this.loginForm.value['password'])
       .subscribe(user => {
         console.log(user)
         this.router.navigate([this.returnUrl]);
-      })
+      },
+        error => {
+          this.error = 'Anmeldung fehlgeschlagen, bitte nochmals versuchen'
+        })
 
 
   }
