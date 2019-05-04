@@ -19,6 +19,6 @@ deploy:
   skip_cleanup: true
   draft: true
   name: Latest
-  body: Current develpoment stage
+  body: Current development stage
   on:
     repo: thomasrepnik/tennisresv2
