@@ -1,12 +1,19 @@
 language: java
 jdk:
 - oraclejdk8
-script: ./gradlew build --scan -s
+script: "./gradlew build --scan -s"
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+deploy:
+  provider: releases
+  api_key:
+    secure: zvjVodDrHe5mgL7tz+KefuUALayalVIpIqqI71UTvmkyUQFSsssKk47HgN5jPZuisYn0/jGnkRKoO6nWKs8Shz1KMgKfaY5DghUE8vaE6y37el0yWaMbvFtSWpzugGzODWXetY+4WROmr1k1rx15f3JZ1RWWwt/x3OuerKrJ5Rf6V4z8TuFW/OwMtKSYnZ0/cP5SkYoWVy+bEVRV/Lj93cWc9DfYSpRl1ub0F4rK8MG0qAZeJzzDcfzaUJfINMNuFdhR//Cv7CJiZDNlhdPK7uI4eHdXJok3ffx8+sukq50uQeIC+FhLPr9tghp5NM7jFp1pPwA5knWrch1cwrFIJalyNFKZCY2wxERr4y2KZvy/qgSyip+Ymz3qWsrHlsuuD0XqJ86/V9m5FnT22JHNhN6CJYSol27sLa9m4LKCfbByQq9YodcNc59bTI9qaf5NMGaMTSQrvEj7Bto+oTXtmxzyyGHzgGQwbM8177YdaWTggY3EiawTPSf9Ap4KRop15uUwDz1z0e0nJsMjjn+GByyuE7vKIZAoWJ/MVkkjFqwlxPt2mr519Po5gONTlkLgRdYVnnQ8otLVzdRCCiX9cIDUFOb8cBtE76DvT+sciUvZ3uFRVWO7qgXGs2TnQjbbycR2LlOJV46XwX+wFfEC8d88SR8n7krdyUtFSIKvhgQ=
+  file: "./frontend/build/distributions/tennis-frontend-0.0.1-SNAPSHOT.zip"
+  overwrite: true
+  skip_cleanup: true
+  draft: true
