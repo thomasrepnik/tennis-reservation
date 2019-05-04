@@ -12,6 +12,7 @@ import { UserService } from './user.service';
 import { UserSlim } from 'src/app/models/user';
 import { Reservation, Spieler } from 'src/app/models/reservation';
 import { ReservationType } from 'src/app/models/reservation-type';
+import { Feld } from 'src/app/models/feld';
 
 @Component({
   selector: 'app-reservation-edit',
@@ -25,7 +26,7 @@ export class ReservationEditComponent implements OnInit {
   reservationForm: FormGroup;
   editMode: boolean;
   users: Observable<UserSlim[]>;
-  reservationTypes: Observable<any[]>;
+  reservationTypes: Promise<ReservationType[]>;
 
   @ViewChild('myForm')
   myForm: any;
@@ -79,7 +80,8 @@ export class ReservationEditComponent implements OnInit {
 
 
     this.users = this.userService.getAllUsersWithoutMe();
-    this.reservationTypes = this.reservationService.getReservationTypes();
+    //this.reservationTypes = this.reservationService.getReservationTypes();
+
 
     this.activatedRoute.params.subscribe(
       (params: Params) => {
@@ -89,6 +91,7 @@ export class ReservationEditComponent implements OnInit {
           this.reservationService.getReservationById(id).subscribe(
             (reservation: Reservation) => {
               this.reservation = reservation;
+              this.reservationTypes = this.getAllReservationTypesForField(reservation);
               this.updateForm(this.reservation);
             }
           );
@@ -98,9 +101,10 @@ export class ReservationEditComponent implements OnInit {
 
     this.activatedRoute.paramMap
       .pipe(map(() => window.history.state)).subscribe(
-        (reservationModel: any) => {
-          if (reservationModel.hasOwnProperty('start')) {
-            this.reservation = reservationModel;
+        (reservation: any) => {
+          if (reservation.hasOwnProperty('start')) {
+            this.reservation = reservation;
+            this.reservationTypes = this.getAllReservationTypesForField(reservation);
             this.updateForm(this.reservation);
           }
         }
@@ -109,6 +113,11 @@ export class ReservationEditComponent implements OnInit {
 
 
 
+  }
+
+  async getAllReservationTypesForField(reservation: Reservation) {
+    let feld = <Feld>await this.reservationService.getCourtById(reservation.feld.id).toPromise();
+    return feld.reservationTypes;
   }
 
   asFormArray(input: any): FormArray {
@@ -236,7 +245,14 @@ export class ReservationEditComponent implements OnInit {
       })
 
       if (reservationModel.reservationType != null) {
+        console.log("update reservation type: " + JSON.stringify(reservationModel.reservationType))
         this.reservationForm.patchValue({ 'spielart': reservationModel.reservationType })
+      } else {
+        //Bei einer neuen Reservation wird einfach die erste verfügbare Spielart ausgewählt
+        this.reservationTypes.then(
+          r => {
+            this.reservationForm.patchValue({ 'spielart': r[0] })
+          })
       }
 
       this.editMode = (reservationModel.id > 0);

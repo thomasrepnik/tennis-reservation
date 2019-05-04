@@ -34,6 +34,10 @@ export class ReservationService {
       )
   }
 
+  getCourtById(id: number): Observable<Feld> {
+    return this.httpClient.get<Feld>('/api/felds/' + id);
+  }
+
   getReservationTypes(): Observable<any[]> {
     return this.httpClient.get<any[]>('/api/reservation-types');
   }
