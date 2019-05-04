@@ -153,7 +153,12 @@ export class ReservationEditComponent implements OnInit {
         }
       );;
     } else {
-      this.reservationService.addReservation(newReservation);
+      this.reservationService.addReservation(newReservation).subscribe(
+        (reservation: Reservation) => {
+          console.log('Reservation wurde mit ID ' + reservation.id + ' hinzugefügt')
+          this.router.navigate(['']);
+        }
+      );;
     }
 
 

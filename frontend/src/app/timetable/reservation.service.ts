@@ -61,12 +61,8 @@ export class ReservationService {
     return this.httpClient.get<Reservation>('/api/reservations/' + id);
   }
 
-  addReservation(reservation: Reservation) {
-    this.httpClient.post<Reservation>('/api/reservations/', reservation).subscribe(
-      (reservation: Reservation) => {
-        console.log('Reservation wurde mit ID ' + reservation.id + ' hinzugefügt')
-      }
-    );
+  addReservation(reservation: Reservation): Observable<Reservation> {
+    return this.httpClient.post<Reservation>('/api/reservations/', reservation);
   }
 
   updateReservation(reservation: Reservation): Observable<Reservation> {
