@@ -28,6 +28,11 @@
 
         <addPrimaryKey columnNames="feld_id, reservation_type_id" tableName="feld_reservation_type"/>
         
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/feld-reservation-type.csv"
+                  separator=";"
+                  tableName="feld_reservation_type">
+        </loadData>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

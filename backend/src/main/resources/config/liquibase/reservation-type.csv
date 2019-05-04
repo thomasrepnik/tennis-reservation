@@ -1,0 +1,11 @@
+id;name;anzahlspieler;kontingent
+1;Einzel;2;4
+2;Einzel 2 Std;2;8
+3;Einzel mit Ballmaschine;1;4
+4;Doppel 1 Std;4;2
+5;Doppel 2 Std;4;4
+6;Forderung 2 Std;2;3
+7;Turniermodus 2 Std Einzel;2;1
+8;Turniermodus 2 Std Doppel;4;1
+9;Tennislehrer 2 Spieler;3;4
+10;Wand;1;0
