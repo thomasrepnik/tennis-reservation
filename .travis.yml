@@ -1,7 +1,7 @@
 language: java
 jdk:
 - oraclejdk8
-script: "./gradlew build --scan -s"
+script: "./gradlew build distZip --scan -s"
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -17,3 +17,5 @@ deploy:
   overwrite: true
   skip_cleanup: true
   draft: true
+  on:
+    repo: thomasrepnik/tennisresv2
