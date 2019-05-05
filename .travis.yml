@@ -16,7 +16,6 @@ addons:
     token:
       secure: "P1runspQ0IA1Q8RVkTgWX/7CrLC/WEOpnKcv5RMRaHHPrHsck/YjHXfl/gKOp+XvNGJ4uDPEkW8vjDtOy/uSVd6SWwKp3v9xHYwWSaxJyIEbWvf/BfVjZ3UAeco3YUZaTj2oQ2RSfaZXPl0i46dpPPPHydsWnxybJN/D3w+TPulGaaTTsL7TVOc9iBNOV2wFDyclFlainx8B8zvh8WgzjCKP4LtloO+zltwDyf/6MfXLN3hvl8H34QpNTGdxcGPJ3gNKWdLk6p6RZ19fM660JQzwEX0sDNVwtCDVHse9DZFQzdldw3E56+hPbJcNJuM37FfebjnJrqK66h0DQPzmGH2XKdmPziY+q0ZdcMd7++Og9O/kss5ToiFcCfrTYhVbeAgAz4zydNcFpB1i7lgrvIRIIeRTh/MwLpU4UMUfwpcXZt4vDcGzGKYYsDEDHyWy9SygS60cIpZqHpQj4yJChjyMaIXgdParIP7de4Z0GLBZ9WwjA+srE4/TMpFBn9tQyGMHKLA7G49u5+v/3EkUXEOhaMYh2dMtgxqfnw44TRv4reqakqqs1HEDq+DSNKqTAys8Kx9kT/sOXZfGOVl//4tB8elyJ2CLU6Q1qJgjnKm201OtZ/MRTBKwkrazZAybMrSL0i5m4WxHRLKmnlmupO0wiR8cJKUYuUa2yqELQuo="
 script:
-  # other script steps might be done before running the actual analysis
   - sonar-scanner
 
 deploy:
