@@ -7,3 +7,15 @@
 ## Description ##
 
 This project includes a frontend (Angular) and a backend (Spring Boot). The purpose of this project is only in realizing the frontend. The backend is only implemented to have a working and executable environment, which behaves like the real backend.
+
+
+
+## Installation ##
+```
+./gradlew clean build
+java -jar ./backend/build/libs/backend-0.0.1-SNAPSHOT.jar
+```
+
+**Login credentials:**<br>
+Username: admin<br>
+Password: admin
