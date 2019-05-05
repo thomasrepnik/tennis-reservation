@@ -9,6 +9,12 @@ cache:
   directories:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
+after_success:
+  ./gradlew sonarqube \
+  -Dsonar.projectKey=thomasrepnik_tennis-reservation \
+  -Dsonar.organization=thomasrepnik-github \
+  -Dsonar.host.url=https://sonarcloud.io \
+  -Dsonar.login=93aa7d6ccf4cbcc810f5e9a53e4fd5427412cbcf
 deploy:
   provider: releases
   api_key:
