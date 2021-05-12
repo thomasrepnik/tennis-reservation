@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "@ng-select/ng-select": "^2.18.0",
-    "chart.js": "^2.5.0",
+    "chart.js": "^2.9.4",
     "core-js": "^2.5.4",
     "moment": "^2.24.0",
     "ngx-bootstrap": "^4.1.1",
