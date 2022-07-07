@@ -23,7 +23,7 @@
     "@ng-select/ng-select": "^2.18.0",
     "chart.js": "^2.5.0",
     "core-js": "^2.5.4",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "ngx-bootstrap": "^4.1.1",
     "ngx-bootstrap-switch": "0.0.3",
     "rxjs": "~6.3.3",
